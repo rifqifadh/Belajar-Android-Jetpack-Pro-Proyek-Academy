@@ -1,4 +1,4 @@
-package com.example.academy.bookmark
+package com.example.academy.ui.bookmark
 
 import android.app.Activity
 import android.content.Intent
@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.academy.R
-import com.example.academy.academy.Holder
+import com.example.academy.ui.academy.Holder
 import com.example.academy.data.CourseEntity
-import com.example.academy.detail.DetailCourseActivity
+import com.example.academy.ui.detail.DetailCourseActivity
 import org.jetbrains.anko.find
 
-class BookmartAdapter(private val activity: Activity, private val callback: BookmarkFragmentCallback) : RecyclerView.Adapter<BookmartHolder>() {
+class BookmarkAdapter(private val activity: Activity, private val callback: BookmarkFragmentCallback) : RecyclerView.Adapter<BookmarkHolder>() {
 
     private val courses: MutableList<CourseEntity> = mutableListOf()
 
@@ -27,8 +27,8 @@ class BookmartAdapter(private val activity: Activity, private val callback: Book
         courses.addAll(listCourses)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmartHolder {
-        return BookmartHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkHolder {
+        return BookmarkHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.items_bookmark, parent, false)
         )
@@ -36,17 +36,18 @@ class BookmartAdapter(private val activity: Activity, private val callback: Book
 
     override fun getItemCount(): Int = courses.size
 
-    override fun onBindViewHolder(holder: BookmartHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookmarkHolder, position: Int) {
         holder.bindItem(courses[position])
         holder.btnShare.setOnClickListener { callback.onShareClick(courses[holder.adapterPosition]) }
         holder.itemView.setOnClickListener {
             val intent = Intent(activity, DetailCourseActivity::class.java)
-            intent.putExtra(DetailCourseActivity.EXTRA_COURSE, courses.)
+            intent.putExtra(DetailCourseActivity.EXTRA_COURSE, courses[position].courseId)
+            activity.startActivity(intent)
         }
     }
 }
 
-class BookmartHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class BookmarkHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     private val tvTitle = view.find<TextView>(R.id.tv_item_title)
     private val tvDate = view.find<TextView>(R.id.tv_item_date)

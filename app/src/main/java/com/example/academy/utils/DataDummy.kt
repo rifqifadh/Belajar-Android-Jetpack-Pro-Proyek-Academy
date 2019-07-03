@@ -1,9 +1,7 @@
 package com.example.academy.utils
 
-import com.example.academy.data.*
 import com.example.academy.data.CourseEntity
-
-
+import com.example.academy.data.ModuleEntity
 
 
 class DataDummy {
@@ -60,16 +58,85 @@ class DataDummy {
     fun generateDummyModules(courseId: String): ArrayList<ModuleEntity> {
 
         val modules = ArrayList<ModuleEntity>()
+        modules.add(
+            ModuleEntity(
+                String.format("%sm1", courseId),
+                courseId,
+                "Modul 0 : Introduction",
+                0,
+                null
+            )
+        )
 
+        modules.add(
+            ModuleEntity(
+                String.format("%sm2", courseId),
+                courseId,
+                "Modul 1 : Teori 1",
+                1,
+                null
+            )
+        )
+
+        modules.add(
+            ModuleEntity(
+                String.format("%sm3", courseId),
+                courseId,
+                "Latihan 1",
+                2,
+                null
+            )
+        )
+
+        modules.add(
+            ModuleEntity(
+                String.format("%sm4", courseId),
+                courseId,
+                "Bedah Kode 1",
+                3,
+                null
+            )
+        )
+
+        modules.add(
+            ModuleEntity(
+                String.format("%sm5", courseId),
+                courseId,
+                "Modul 2 : Teori 2",
+                4,
+                null
+            )
+        )
+        modules.add(
+            ModuleEntity(
+                String.format("%sm6", courseId),
+                courseId,
+                "Latihan 2",
+                5,
+                null
+            )
+        )
+        modules.add(
+            ModuleEntity(
+                String.format("%sm7", courseId),
+                courseId,
+                "Bedah Kode 2",
+                6,
+                null
+            )
+        )
         return modules
     }
 
-//    fun getCourse(courseId: String): CourseEntity {
-//        for (i in 0 until generateDummyCourses().size) {
-//           val entity: CourseEntity = generateDummyCourses().get(i)
-//            if (entity.copy())
-//        }
-//        return null
-//    }
+
+    fun getCourse(courseId: String): CourseEntity? {
+        for (i in 0..generateDummyCourses().size) {
+            val entity = generateDummyCourses()[i]
+            if (entity.courseId == courseId) {
+                return entity
+            }
+        }
+        return null
+    }
 
 }

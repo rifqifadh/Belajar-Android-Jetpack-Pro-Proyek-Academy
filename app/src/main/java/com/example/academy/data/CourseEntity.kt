@@ -1,10 +1,10 @@
 package com.example.academy.data
 
 data class CourseEntity(
-    private val courseId: String? = null,
-    private val title: String? = null,
-    private val description: String? = null,
-    private val deadline: String? = null,
-    private val bookmarked: Boolean? = true,
-    private val imagePath: String? = null
+    val courseId: String,
+    val title: String,
+    val description: String,
+    val deadline: String,
+    val bookmarked: Boolean? = false,
+    val imagePath: String
 )
