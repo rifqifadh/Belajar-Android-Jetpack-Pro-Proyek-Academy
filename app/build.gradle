@@ -66,6 +66,7 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-android:$mockitoVersion"
     testImplementation "androidx.arch.core:core-testing:$archLifecycleVersion"
 
     // Dependencies for Android unit tests
@@ -84,5 +85,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$archLifecycleVersion"
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
 
+    // Dependencies for Idle Resource
+    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
 }

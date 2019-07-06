@@ -43,11 +43,6 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        viewModel = ViewModelProviders.of(this).get(CourseReaderViewModel::class.java)
-//        if (activity != null) {
-//            moduleListAdapter = ModuleListAdapter(this)
-//            populateRecyclerView(viewModel.getModules())
-//        }
         activity?.let {
             viewModel = ViewModelProviders.of(it).get(CourseReaderViewModel::class.java)
         }
