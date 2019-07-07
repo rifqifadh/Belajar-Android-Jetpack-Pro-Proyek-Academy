@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ModuleResponse (
-    private val moduleId: String? = null,
-    private val courseId: String? = null,
-    private val title: String? = null,
-    private val position: Int? = null
+    val moduleId: String? = null,
+    val courseId: String? = null,
+    val title: String? = null,
+    val position: Int? = null
 ): Parcelable

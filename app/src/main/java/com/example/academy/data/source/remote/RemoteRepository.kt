@@ -16,7 +16,7 @@ class RemoteRepository() {
         return RemoteRepository(helper)
     }
 
-    fun jsonHelper(): MutableList<CourseResponse> {
+    fun getAllCourses(): MutableList<CourseResponse> {
         return jsonHelper.loadCourses()
     }
 
