@@ -3,8 +3,7 @@ package com.example.academy.utils
 import com.example.academy.data.source.local.entity.CourseEntity
 import com.example.academy.data.source.local.entity.ModuleEntity
 
-
-class DataDummy {
+class FakeDataDummy {
 
     fun generateDummyCourses(): ArrayList<CourseEntity> {
 
