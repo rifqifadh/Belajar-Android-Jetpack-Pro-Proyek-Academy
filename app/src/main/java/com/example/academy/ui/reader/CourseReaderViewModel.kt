@@ -1,8 +1,8 @@
 package com.example.academy.ui.reader
 
 import androidx.lifecycle.ViewModel
-import com.example.academy.data.ContentEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.ContentEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.utils.DataDummy
 
 

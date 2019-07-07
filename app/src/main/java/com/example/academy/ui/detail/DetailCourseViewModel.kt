@@ -1,8 +1,8 @@
 package com.example.academy.ui.detail
 
 import androidx.lifecycle.ViewModel
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.utils.DataDummy
 
 class DetailCourseViewModel : ViewModel() {

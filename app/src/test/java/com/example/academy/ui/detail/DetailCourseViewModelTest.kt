@@ -1,7 +1,6 @@
 package com.example.academy.ui.detail
 
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.CourseEntity
 import org.junit.After
 import org.junit.Before
 import org.junit.Assert.*
@@ -15,7 +14,8 @@ class DetailCourseViewModelTest {
     @Before
     fun setUp() {
         viewModel = DetailCourseViewModel()
-        dummyCourse = CourseEntity("a14",
+        dummyCourse = CourseEntity(
+            "a14",
             "Menjadi Android Developer Expert",
             "Dicoding sebagai satu-satunya Google Authorized Training Partner di Indonesia telah melalui proses penyusunan kurikulum secara komprehensif. Semua modul telah diverifikasi langsung oleh Google untuk memastikan bahwa materi yang diajarkan relevan dan sesuai dengan kebutuhan industri digital saat ini. Peserta akan belajar membangun aplikasi Android dengan materi Testing, Debugging, Application, Application UX, Fundamental Application Components, Persistent Data Storage, dan Enhanced System Integration.",
             "100 Hari",

@@ -1,6 +1,6 @@
 package com.example.academy.ui.academy
 
-import com.example.academy.data.CourseEntity
+import com.example.academy.data.source.local.entity.CourseEntity
 import org.junit.After
 import org.junit.Test
 

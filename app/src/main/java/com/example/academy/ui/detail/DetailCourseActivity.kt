@@ -2,26 +2,20 @@ package com.example.academy.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.academy.R
-import com.example.academy.data.CourseEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.ui.reader.CourseReaderActivity
 import com.example.academy.ui.reader.CourseReaderActivity.Companion.EXTRA_COURSE_ID
-import com.example.academy.utils.DataDummy
 
 import kotlinx.android.synthetic.main.activity_detail_course.*
 import kotlinx.android.synthetic.main.content_detail_course.*
-import org.jetbrains.anko.find
 
 
 class DetailCourseActivity : AppCompatActivity() {

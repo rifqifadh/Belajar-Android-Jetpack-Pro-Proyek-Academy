@@ -10,8 +10,7 @@ import android.webkit.WebView
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProviders
 import com.example.academy.R
-import com.example.academy.data.ContentEntity
-import com.example.academy.data.ModuleEntity
+import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.ui.reader.CourseReaderViewModel
 import org.jetbrains.anko.find
 

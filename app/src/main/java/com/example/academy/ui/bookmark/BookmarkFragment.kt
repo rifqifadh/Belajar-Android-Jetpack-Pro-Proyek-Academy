@@ -11,7 +11,7 @@ import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
-import com.example.academy.data.CourseEntity
+import com.example.academy.data.source.local.entity.CourseEntity
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 
 
