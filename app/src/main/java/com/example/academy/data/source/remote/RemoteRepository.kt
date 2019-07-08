@@ -27,5 +27,4 @@ class RemoteRepository() {
     fun getContent(moduleId: String): ContentResponse? {
         return jsonHelper.loadContent(moduleId)
     }
-
 }

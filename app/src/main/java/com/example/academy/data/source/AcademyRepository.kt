@@ -1,5 +1,7 @@
 package com.example.academy.data.source
 
+import android.util.Log
+import com.example.academy.data.source.local.entity.ContentEntity
 import com.example.academy.data.source.local.entity.CourseEntity
 import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.data.source.local.room.LocalRepository
@@ -51,7 +53,7 @@ class AcademyRepository() : AcademyDataSource {
         val courses = remoteRepository.getAllCourses()
         for (i in 0 until courses.size) {
             val response = courses[i]
-            if (response.id.equals(courseId)) {
+            if (response.id == courseId) {
                 course = CourseEntity(
                     response.id,
                     response.title,
@@ -98,6 +100,20 @@ class AcademyRepository() : AcademyDataSource {
 
 
     override fun getContent(courseId: String, moduleId: String): ModuleEntity? {
-        return null
+        val moduleResponses = remoteRepository.getModules(courseId)
+        var module: ModuleEntity? = null
+        for (i in 0 until moduleResponses.size) {
+            val moduleResponse = moduleResponses[i]
+            val id: String? = moduleResponse.moduleId
+            if (id.equals(moduleId)) {
+                module = ModuleEntity(id,
+                    moduleResponse.courseId,
+                    moduleResponse.title,
+                    moduleResponse.position, false)
+                module.contentEntity = ContentEntity(remoteRepository.getContent(moduleId)?.content)
+                break
+            }
+        }
+        return module
     }
 }

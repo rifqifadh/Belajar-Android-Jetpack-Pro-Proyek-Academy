@@ -27,7 +27,6 @@ class DetailCourseAdapter: RecyclerView.Adapter<DetailHolder>() {
     }
 
     override fun getItemCount(): Int {
-        Log.d("Size: ", modules.size.toString())
         return modules.size
     }
 
@@ -42,7 +41,6 @@ class DetailHolder(view: View): RecyclerView.ViewHolder(view){
 
     fun bindItem(moduleEntity: ModuleEntity) {
         tvTitle.text = moduleEntity.mTitle
-        Log.d("TAG", moduleEntity.mTitle)
     }
 
 }

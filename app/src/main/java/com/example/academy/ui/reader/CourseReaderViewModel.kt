@@ -1,18 +1,20 @@
 package com.example.academy.ui.reader
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.academy.data.source.AcademyRepository
 import com.example.academy.data.source.local.entity.ContentEntity
 import com.example.academy.data.source.local.entity.ModuleEntity
 import com.example.academy.utils.DataDummy
 
 
-class CourseReaderViewModel : ViewModel() {
+class CourseReaderViewModel(private val mAcademyRepository: AcademyRepository) : ViewModel() {
 
     private lateinit var courseId: String
     private lateinit var moduleId: String
 
-    fun getModules(): MutableList<ModuleEntity> {
-        return DataDummy().generateDummyModules(courseId)
+    fun getModules(): MutableList<ModuleEntity>? {
+        return mAcademyRepository.getAllModulesByCourse(courseId)
     }
 
     fun setCourseId(courseId: String) {
@@ -21,19 +23,7 @@ class CourseReaderViewModel : ViewModel() {
 
 
     fun getSelectedModule(): ModuleEntity? {
-        var module: ModuleEntity? = null
-
-        for (i in 0 until getModules().size) {
-            if (getModules()[i].mModuleId.equals(moduleId)) {
-                module = getModules()[i]
-                module.contentEntity = ContentEntity(
-                    "<h3 class=\\\"fr-text-bordered\\\">"
-                            + module.mTitle + "</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
-                )
-                break
-            }
-        }
-        return module
+        return mAcademyRepository.getContent(courseId, moduleId)
     }
 
     fun setSelectedModule(moduleId: String) {

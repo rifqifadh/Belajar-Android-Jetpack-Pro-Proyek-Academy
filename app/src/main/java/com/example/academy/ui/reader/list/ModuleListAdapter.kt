@@ -46,7 +46,6 @@ class ModuleListHolder(view: View): RecyclerView.ViewHolder(view) {
 
 }
 
-
 interface MyAdapterClickListener {
     fun onItemClicked(position: Int, moduleId: String)
 }

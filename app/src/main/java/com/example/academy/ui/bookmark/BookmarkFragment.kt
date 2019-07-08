@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
 import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 
 
@@ -37,9 +39,11 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
         super.onActivityCreated(savedInstanceState)
 
         activity?.let {
-            bookmarkViewModel = ViewModelProviders.of(this).get(BookmarkViewModel::class.java)
+            bookmarkViewModel = obtainViewModel(it)
             bookmartAdapter = BookmarkAdapter(context as Activity, this)
-            bookmartAdapter.setListCoueses(bookmarkViewModel.getBookmarks())
+            bookmarkViewModel.getBookmarks()?.let {
+                it1 -> bookmartAdapter.setListCoueses(it1)
+            }
 
             rv_bookmark.layoutManager = LinearLayoutManager(context)
             rv_bookmark.setHasFixedSize(true)
@@ -57,7 +61,8 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
             .startChooser()
     }
 
-
-
-
+    private fun obtainViewModel(activity: FragmentActivity): BookmarkViewModel {
+        val factory = ViewModelFactory().getInstance(activity.application)
+        return ViewModelProviders.of(activity, factory).get(BookmarkViewModel::class.java)
+    }
 }

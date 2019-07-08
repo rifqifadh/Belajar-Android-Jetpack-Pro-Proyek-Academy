@@ -13,7 +13,7 @@ class DetailCourseViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = DetailCourseViewModel()
+        viewModel = DetailCourseViewModel(mAcademyRepository)
         dummyCourse = CourseEntity(
             "a14",
             "Menjadi Android Developer Expert",

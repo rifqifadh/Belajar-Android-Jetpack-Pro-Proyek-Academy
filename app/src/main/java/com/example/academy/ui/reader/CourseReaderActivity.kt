@@ -3,11 +3,13 @@ package com.example.academy.ui.reader
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.example.academy.R
 import com.example.academy.ui.reader.content.ModuleContentFragment
 import com.example.academy.ui.reader.list.ModuleListFragment
+import com.example.academy.viewmodel.ViewModelFactory
 
 class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
 
@@ -24,7 +26,7 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
 
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        viewModel = ViewModelProviders.of(this).get(CourseReaderViewModel::class.java)
+        viewModel = obtainViewModel(this)
 
         val bundle = intent.extras
         if (bundle != null) {
@@ -61,5 +63,10 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
             fragmentTransaction.addToBackStack(null)
         }
         fragmentTransaction.commit()
+    }
+
+    private fun obtainViewModel(activity: FragmentActivity): CourseReaderViewModel {
+        val factory = ViewModelFactory().getInstance(activity.application)
+        return ViewModelProviders.of(activity, factory).get(CourseReaderViewModel::class.java)
     }
 }

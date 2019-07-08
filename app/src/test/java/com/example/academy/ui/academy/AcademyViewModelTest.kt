@@ -13,7 +13,7 @@ class AcademyViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = AcademyViewModel()
+        viewModel = AcademyViewModel(mAcademyRepository)
     }
 
     @After

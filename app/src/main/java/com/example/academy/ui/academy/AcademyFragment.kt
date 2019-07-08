@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
 import com.example.academy.utils.DataDummy
+import com.example.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_academy.*
 
 
@@ -38,16 +41,22 @@ class AcademyFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         activity?.let {
-            academyViewModel = ViewModelProviders.of(this).get(AcademyViewModel::class.java)
+//            academyViewModel = ViewModelProviders.of(this).get(AcademyViewModel::class.java)
+            academyViewModel = obtainViewModel(it)
             academyAdapter = AcademyAdapter(context as Activity)
-            academyAdapter.setListCourses(academyViewModel.getCourse())
+//            academyAdapter.setListCourses(listCourses)
+            academyViewModel.getCourse()?.let {
+                    it1 -> academyAdapter.setListCourses(it1) }
 
             rv_academy.layoutManager = LinearLayoutManager(context)
             rv_academy.setHasFixedSize(true)
             rv_academy.adapter = academyAdapter
         }
-
-
     }
 
+    @NonNull
+    private fun obtainViewModel(activity: FragmentActivity): AcademyViewModel {
+        val factory = ViewModelFactory().getInstance(activity.application)
+        return ViewModelProviders.of(activity, factory).get(AcademyViewModel::class.java)
+    }
 }
