@@ -1,15 +1,19 @@
 package com.example.academy.ui.academy
 
-import com.example.academy.data.source.local.entity.CourseEntity
+import com.example.academy.data.source.AcademyRepository
 import org.junit.After
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
+import com.example.academy.utils.FakeDataDummies
+import org.mockito.Mockito.*
+
 
 class AcademyViewModelTest {
 
     private lateinit var viewModel: AcademyViewModel
+    private var mAcademyRepository: AcademyRepository = mock(AcademyRepository::class.java)
 
     @Before
     fun setUp() {
@@ -23,8 +27,10 @@ class AcademyViewModelTest {
 
     @Test
     fun getCourse() {
-        val courseEntity: MutableList<CourseEntity> = viewModel.getCourse()
-        assertNotNull(courseEntity)
-        assertEquals(5, courseEntity.size)
+        `when`(mAcademyRepository.getAllCourses()).thenReturn(FakeDataDummies().generateDummyCourses())
+        val courseEntities = viewModel.getCourse()
+        verify(mAcademyRepository).getAllCourses()
+        assertNotNull(courseEntities)
+        assertEquals(5, courseEntities?.size)
     }
 }
