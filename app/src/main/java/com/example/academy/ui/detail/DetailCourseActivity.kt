@@ -3,9 +3,11 @@ package com.example.academy.ui.detail
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,8 @@ import com.example.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_course.*
 import kotlinx.android.synthetic.main.content_detail_course.*
 import org.jetbrains.anko.activityManager
+
+
 
 
 class DetailCourseActivity : AppCompatActivity() {
@@ -40,17 +44,18 @@ class DetailCourseActivity : AppCompatActivity() {
         detailCourseAdapter = DetailCourseAdapter()
 
         viewModel = obtainViewModel(this)
+        progress_bar.visibility = View.VISIBLE
 
         val extras = intent.extras
         if (extras != null) {
             val courseId = extras.getString(EXTRA_COURSE)
             if (courseId != null) {
                 viewModel.setCourseId(courseId)
-                viewModel.getModules()?.let { detailCourseAdapter.setModules(it) }
-                populateCourse(viewModel.getCourse())
-
             }
         }
+
+        viewModel.getCourse().observe(this, courseEntity)
+        viewModel.getModules().observe(this, moduleEntity)
 
         rv_module.isNestedScrollingEnabled = false
         rv_module.layoutManager = LinearLayoutManager(this)
@@ -60,6 +65,22 @@ class DetailCourseActivity : AppCompatActivity() {
         val dividerItemDecoration = DividerItemDecoration(rv_module.context, DividerItemDecoration.VERTICAL)
         rv_module.addItemDecoration(dividerItemDecoration)
     }
+
+    private val courseEntity = Observer<CourseEntity> {  CourseEntity ->
+        CourseEntity?.let {
+            populateCourse(it)
+            progress_bar.visibility = View.GONE
+        }
+    }
+
+    private val moduleEntity = Observer<MutableList<ModuleEntity>?> { modules ->
+        modules?.let {
+            detailCourseAdapter.setModules(it)
+            detailCourseAdapter.notifyDataSetChanged()
+            progress_bar.visibility = View.GONE
+        }
+    }
+
 
     private fun populateCourse(courseEntity: CourseEntity?) {
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.ProgressBar
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.academy.R
 import com.example.academy.data.source.local.entity.ModuleEntity
@@ -23,7 +24,6 @@ class ModuleContentFragment : Fragment() {
 
     val TAG = ModuleContentFragment::class.java.simpleName
 
-    private lateinit var progressBar: ProgressBar
     private lateinit var viewModel: CourseReaderViewModel
 
     fun newInstance(): Fragment {
@@ -40,7 +40,7 @@ class ModuleContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar = view.find(R.id.progress_bar)
+        progress_bar.visibility = View.VISIBLE
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,7 +48,12 @@ class ModuleContentFragment : Fragment() {
         activity?.let {
             viewModel = obtainViewModel(it)
         }
-        populateWebView(viewModel.getSelectedModule())
+        viewModel.getSelectedModule()?.observe(this, moduleEntity)
+    }
+
+    private val moduleEntity = Observer<ModuleEntity> {
+            populateWebView(it)
+        progress_bar.visibility = View.GONE
     }
 
     private fun populateWebView(moduleEntity: ModuleEntity?) {

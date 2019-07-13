@@ -1,6 +1,7 @@
 package com.example.academy.ui.reader
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.academy.data.source.AcademyRepository
 import com.example.academy.data.source.local.entity.ContentEntity
@@ -13,7 +14,7 @@ class CourseReaderViewModel(private val mAcademyRepository: AcademyRepository) :
     private lateinit var courseId: String
     private lateinit var moduleId: String
 
-    fun getModules(): MutableList<ModuleEntity>? {
+    fun getModules(): LiveData<MutableList<ModuleEntity>?> {
         return mAcademyRepository.getAllModulesByCourse(courseId)
     }
 
@@ -22,7 +23,7 @@ class CourseReaderViewModel(private val mAcademyRepository: AcademyRepository) :
     }
 
 
-    fun getSelectedModule(): ModuleEntity? {
+    fun getSelectedModule(): LiveData<ModuleEntity>? {
         return mAcademyRepository.getContent(courseId, moduleId)
     }
 

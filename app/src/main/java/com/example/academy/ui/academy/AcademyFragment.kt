@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
+import com.example.academy.data.source.local.entity.CourseEntity
 import com.example.academy.utils.DataDummy
 import com.example.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_academy.*
@@ -40,17 +42,28 @@ class AcademyFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        if (activity != null) {
+            progress_bar.visibility = View.VISIBLE
+        } else {
+            progress_bar.visibility = View.GONE
+        }
+
         activity?.let {
-//            academyViewModel = ViewModelProviders.of(this).get(AcademyViewModel::class.java)
             academyViewModel = obtainViewModel(it)
-            academyAdapter = AcademyAdapter(context as Activity)
-//            academyAdapter.setListCourses(listCourses)
-            academyViewModel.getCourse()?.let {
-                    it1 -> academyAdapter.setListCourses(it1) }
+            academyAdapter = AcademyAdapter(it)
+            academyViewModel.getCourse().observe(this, courses)
 
             rv_academy.layoutManager = LinearLayoutManager(context)
             rv_academy.setHasFixedSize(true)
             rv_academy.adapter = academyAdapter
+        }
+    }
+
+    private val courses = Observer<MutableList<CourseEntity>?> { courseEntity ->
+        courseEntity?.let {
+            academyAdapter.setListCourses(it)
+            academyAdapter.notifyDataSetChanged()
+            progress_bar.visibility = View.GONE
         }
     }
 

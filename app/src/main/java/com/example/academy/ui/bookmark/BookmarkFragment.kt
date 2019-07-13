@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy.R
@@ -38,17 +39,25 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        progress_bar.visibility = View.VISIBLE
         activity?.let {
             bookmarkViewModel = obtainViewModel(it)
-            bookmartAdapter = BookmarkAdapter(context as Activity, this)
-            bookmarkViewModel.getBookmarks()?.let {
-                it1 -> bookmartAdapter.setListCoueses(it1)
-            }
+            bookmartAdapter = BookmarkAdapter(it, this)
+            bookmarkViewModel.getBookmarks().observe(this, courses)
 
             rv_bookmark.layoutManager = LinearLayoutManager(context)
             rv_bookmark.setHasFixedSize(true)
             rv_bookmark.adapter = bookmartAdapter
         }
+    }
+
+    private val courses = Observer<MutableList<CourseEntity>?> { courseEntity ->
+        courseEntity?.let {
+            bookmartAdapter.setListCoueses(it)
+            bookmartAdapter.notifyDataSetChanged()
+            progress_bar.visibility = View.GONE
+        }
+
     }
 
     override fun onShareClick(courseEntity: CourseEntity) {
